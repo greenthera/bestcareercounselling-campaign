@@ -157,6 +157,7 @@ form .btn[disabled]{opacity:.7;cursor:wait;transform:none}
 .form-msg{display:none;margin-top:14px;padding:12px 14px;border-radius:10px;font-size:14px;font-weight:600}
 .form-msg.ok{display:block;background:#E7F7EE;color:#12723A}
 .form-msg.fail{display:block;background:#FDECEC;color:#B42318}
+.wa-btn{display:block;margin-top:10px;text-align:center;background:#25D366;color:#fff !important;font-weight:800;padding:13px 14px;border-radius:10px;text-decoration:none;font-size:15px}
 
 /* ---------- Footer ---------- */
 footer{background:var(--ink);color:rgba(255,255,255,.6);font-size:13px;padding:36px 0 110px}
@@ -178,6 +179,23 @@ footer{background:var(--ink);color:rgba(255,255,255,.6);font-size:13px;padding:3
 .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(11,27,51,.96);backdrop-filter:blur(6px);padding:12px 16px calc(12px + env(safe-area-inset-bottom));display:none;transform:translateY(110%);transition:transform .25s ease}
 .sticky-cta.on{transform:translateY(0)}
 .sticky-cta .btn{width:100%;padding:15px;font-size:15px}
+
+/* ---------- Qualification dropdown ---------- */
+.field select{width:100%;font:inherit;font-size:16px;padding:14px 44px 14px 16px;border:1.5px solid var(--line);border-radius:12px;background:#FCFBF8 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230E1A2B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 16px center;color:var(--ink);-webkit-appearance:none;appearance:none;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.field select:invalid{color:#8A93A3}
+.field select option{color:var(--ink)}
+.field select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(232,176,75,.2);background-color:#fff}
+.field select.bad{border-color:var(--red)}
+
+/* ---------- Floating WhatsApp button ---------- */
+.wa-float{position:fixed;right:18px;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:70;display:flex;align-items:center;gap:8px;background:#25D366;color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 16px 12px 12px;border-radius:999px;box-shadow:0 10px 28px -6px rgba(0,0,0,.35);transition:transform .2s ease,bottom .25s ease}
+.wa-float:hover{transform:translateY(-2px)}
+.wa-float:focus-visible{outline:3px solid #fff;outline-offset:2px}
+@media (max-width:640px){
+  .wa-float{right:14px;padding:12px;bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+  .wa-float-label{display:none}
+  body.sticky-on .wa-float{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+}
 
 /* ---------- Reveal ---------- */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
@@ -496,13 +514,23 @@ src="https://www.facebook.com/tr?id=1792510935236662&ev=PageView&noscript=1"
         </div>
         <div class="err">Please enter a valid 10-digit WhatsApp number.</div>
       </div>
+      <div class="field">
+        <label for="qualification">Educational Qualifications</label>
+        <select id="qualification" name="qualification" required>
+          <option value="" selected disabled>Select your qualification</option>
+          <option value="Pursuing Graduation">Pursuing Graduation</option>
+          <option value="Graduate">Graduate</option>
+          <option value="Masters or PG">Masters or PG</option>
+        </select>
+        <div class="err">Please select your qualification.</div>
+      </div>
 
       <!-- honeypot: hidden from humans, catches bots -->
       <input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
 
       <button type="submit" class="btn" id="submitBtn" data-cta="form">
         <span class="spinner"></span>
-        <span class="label">CLAIM MY FREE SPOT NOW — OCTOBER 15TH @ 8 PM</span>
+        <span class="label">Join WhatsApp Community</span>
       </button>
 
       <p class="subtext"><span>🛡️</span><span>100% Free Live Session. No spam, no fluff—just direct, actionable guidance sent straight to your WhatsApp and email.</span></p>
@@ -527,6 +555,12 @@ src="https://www.facebook.com/tr?id=1792510935236662&ev=PageView&noscript=1"
 </footer>
 
 <!-- ============ STICKY MOBILE CTA ============ -->
+<!-- ============ FLOATING WHATSAPP QUERY BUTTON ============ -->
+<a class="wa-float" id="waFloat" href="https://wa.me/918758175187?text=Hi%2C%20I%20have%20a%20query%20about%20the%20Study%20in%20Dubai%20Masterclass." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 32 32" fill="#fff" aria-hidden="true"><path d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.4c-2.1 0-4.1-.6-5.9-1.7l-.4-.3-3.8 1.2 1.2-3.7-.3-.4a10.4 10.4 0 0 1-1.8-5.8C5 9.9 9.9 5.2 16 5.2s11 4.7 11 10.6-4.9 10.6-11 10.6zm6-7.9c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.2l-1 1.3c-.2.2-.4.3-.7.1-.3-.2-1.4-.5-2.7-1.7-1-.9-1.7-2-1.9-2.3-.2-.3 0-.5.2-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6l-1-2.5c-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.6c.2.2 2.4 3.7 5.8 5.1 2.9 1.1 3.5.9 4.1.8.6-.1 2-.8 2.3-1.6.3-.8.3-1.5.2-1.6-.1-.2-.3-.3-.6-.4z"/></svg>
+  <span class="wa-float-label">Ask a query</span>
+</a>
+
 <div class="sticky-cta" id="stickyCta">
   <a href="#register" class="btn" data-cta="sticky">Reserve My Free Seat — Oct 15 @ 8 PM</a>
 </div>
@@ -578,7 +612,8 @@ function validate(){
   const checks = {
     name:     v => v.trim().length >= 2,
     email:    v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()),
-    whatsapp: v => /^[6-9]\d{9}$/.test(v.trim())
+    whatsapp: v => /^[6-9]\d{9}$/.test(v.trim()),
+    qualification: v => v !== ""
   };
   for (const id in checks){
     const input = document.getElementById(id);
@@ -603,6 +638,7 @@ form.addEventListener("submit", async (e) => {
     name: form.name.value.trim(),
     email: form.email.value.trim(),
     whatsapp: "+91" + form.whatsapp.value.trim(),
+    qualification: form.qualification.value,
     page: location.href,
     ...utm
   });
@@ -611,24 +647,30 @@ form.addEventListener("submit", async (e) => {
     // Wait for the Google Sheet to confirm the row was saved.
     const res = await fetch(GOOGLE_SCRIPT_URL, { method: "POST", body: data });
     const out = await res.json();
-    if (out.result !== "success") throw new Error(out.error || "Sheet did not confirm");
+    if (out.result !== "success" && out.result !== "duplicate") throw new Error(out.error || "Sheet did not confirm");
+    const isNew = out.result === "success" && !out.duplicate;
 
-    // 1) Show the success message
+    // Remember this visitor, so a return visit doesn't re-submit
+    try { localStorage.setItem("dubai_registered", "1"); } catch (_) {}
+
+    // 1) Show the success message + a tap-able WhatsApp button (in case auto-redirect is blocked)
     msg.className = "form-msg ok";
-    msg.textContent = "🎉 Seat reserved! Taking you to our WhatsApp community for the webinar link…";
+    msg.innerHTML = (isNew ? "🎉 Seat reserved!" : "✅ You're already registered!") +
+      " Taking you to our WhatsApp community for the webinar link…" +
+      '<a class="wa-btn" href="' + WHATSAPP_COMMUNITY + '">Join WhatsApp Community →</a>';
     btn.querySelector(".label").textContent = "Seat reserved ✅";
     btn.classList.remove("loading");
 
-    // 2) Only now count the Lead (once per visitor session)
+    // 2) Count the Lead only for a NEW registration, once per browser
     let already = false;
-    try { already = sessionStorage.getItem("lead_tracked") === "1"; } catch (_) {}
-    if (!already) {
+    try { already = localStorage.getItem("lead_tracked") === "1" || sessionStorage.getItem("lead_tracked") === "1"; } catch (_) {}
+    if (isNew && !already) {
       if (typeof fbq === "function") {
         fbq("track", "Lead", { content_name: "Dubai Masterclass Oct 15", currency: "INR", value: 0 },
             { eventID: "lead-" + Date.now() });
       }
       if (typeof gtag === "function") gtag("event", "generate_lead");
-      try { sessionStorage.setItem("lead_tracked", "1"); } catch (_) {}
+      try { localStorage.setItem("lead_tracked", "1"); sessionStorage.setItem("lead_tracked", "1"); } catch (_) {}
     }
 
     // 3) Then send them to the WhatsApp community
@@ -638,16 +680,36 @@ form.addEventListener("submit", async (e) => {
     msg.className = "form-msg fail";
     msg.textContent = "We couldn't save your details. Please check your connection and tap the button again.";
     btn.disabled = false; btn.classList.remove("loading");
-    btn.querySelector(".label").textContent = "CLAIM MY FREE SPOT NOW — OCTOBER 15TH @ 8 PM";
+    btn.querySelector(".label").textContent = "Join WhatsApp Community";
   }
 });
+
+/* ---------- Floating WhatsApp: count clicks as "Contact" (not Lead) ---------- */
+document.getElementById("waFloat").addEventListener("click", () => {
+  if (typeof fbq === "function") fbq("track", "Contact");
+});
+
+/* ---------- Returning visitor who already registered ---------- */
+function showRegistered(){
+  let reg = false;
+  try { reg = localStorage.getItem("dubai_registered") === "1"; } catch (_) {}
+  if (!reg) return;
+  btn.disabled = true;
+  btn.querySelector(".label").textContent = "Seat reserved ✅";
+  msg.className = "form-msg ok";
+  msg.innerHTML = "✅ You're already registered for 15th October, 8 PM." +
+    '<a class="wa-btn" href="' + WHATSAPP_COMMUNITY + '">Join WhatsApp Community →</a>';
+}
+showRegistered();
+// Coming "back" from WhatsApp restores the page; keep the button locked
+window.addEventListener("pageshow", showRegistered);
 
 /* ---------- Sticky mobile CTA: show after hero, hide at form ---------- */
 const sticky = document.getElementById("stickyCta");
 const hero = document.querySelector(".hero");
 const reg  = document.getElementById("register");
 let heroOut = false, regIn = false;
-const upd = () => sticky.classList.toggle("on", heroOut && !regIn);
+const upd = () => { const on = heroOut && !regIn; sticky.classList.toggle("on", on); document.body.classList.toggle("sticky-on", on); };
 new IntersectionObserver(([e]) => { heroOut = !e.isIntersecting; upd(); }).observe(hero);
 new IntersectionObserver(([e]) => { regIn = e.isIntersecting; upd(); }, { threshold: .15 }).observe(reg);
 
